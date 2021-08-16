@@ -48,32 +48,6 @@ bool connect_WiFi()
   return WIFI_CONFIGURED;
 }
 
-void print_2_digits(int number)
-{
-  if (number >= 0 && number < 10)
-  {
-    Serial.write('0');
-  }
-  Serial.print(number);
-}
-
-void print_tm_elements(tmElements_t tm)
-{
-  Serial.write(" ");
-  print_2_digits(tm.Hour);
-  Serial.write(':');
-  print_2_digits(tm.Minute);
-  Serial.write(':');
-  print_2_digits(tm.Second);
-  Serial.print(" ");
-  Serial.print(tm.Day);
-  Serial.write('/');
-  Serial.print(tm.Month);
-  Serial.write('/');
-  Serial.print(tmYearToCalendar(tm.Year));
-  Serial.println();
-}
-
 void print_time(struct tm &timeinfo)
 {
   Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
