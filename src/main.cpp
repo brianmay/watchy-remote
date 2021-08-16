@@ -19,12 +19,6 @@
 DS3232RTC RTC(false);
 GxEPD2_BW<GxEPD2_154_D67, GxEPD2_154_D67::HEIGHT> display(GxEPD2_154_D67(CS, DC, RESET, BUSY));
 
-// void setupTime();
-// void printTime();
-// void drawTime(int hour, int minute, int seconds);
-// void print_tm_elements(char const *msg, tmElements_t tm);
-// bool connect_WiFi();
-
 bool connect_WiFi()
 {
   int WIFI_CONFIGURED;
