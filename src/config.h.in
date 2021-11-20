@@ -4,6 +4,6 @@ char ssid[] = "";
 char pass[] = "";
 
 //Australia Eastern Time Zone (Sydney, Melbourne)
-//TimeChangeRule aEDT = {"AEDT", First, Sun, Oct, 2, 660};    //UTC + 11 hours
-//TimeChangeRule aEST = {"AEST", First, Sun, Apr, 3, 600};    //UTC + 10 hours
-//Timezone timezone(aEDT, aEST);
+TimeChangeRule aEDT = {"AEDT", First, Sun, Oct, 2, 660};    //UTC + 11 hours
+TimeChangeRule aEST = {"AEST", First, Sun, Apr, 3, 600};    //UTC + 10 hours
+Timezone timezone(aEDT, aEST);

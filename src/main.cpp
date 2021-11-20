@@ -9,6 +9,8 @@
 #include <GxEPD2_BW.h>
 #include <Wire.h>
 
+#include <Timezone.h>
+
 #include "DSEG7_Classic_Bold_25.h"
 #include "config.h"
 
@@ -95,7 +97,14 @@ void setup()
 
 bool get_local_time(struct tm &timeinfo)
 {
-  return getLocalTime(&timeinfo);
+  if (getLocalTime(&timeinfo)) {
+    time_t t = mktime(&timeinfo);
+    t = timezone.toLocal(t);
+    timeinfo = *gmtime(&t);
+    return true;
+  } else {
+    return false;
+  }
 }
 
 bool get_rtc_time(struct tm &timeinfo)
@@ -103,6 +112,7 @@ bool get_rtc_time(struct tm &timeinfo)
   tmElements_t tm;
   RTC.read(tm);
   time_t t = makeTime(tm);
+  t = timezone.toLocal(t);
   timeinfo = *gmtime(&t);
   return true;
 }
