@@ -21,6 +21,7 @@
 
 DS3232RTC RTC(false);
 GxEPD2_BW<GxEPD2_154_D67, GxEPD2_154_D67::HEIGHT> display(GxEPD2_154_D67(CS, DC, RESET, BUSY));
+RTC_DATA_ATTR bool clean_boot = true;
 
 bool connect_WiFi()
 {
@@ -62,7 +63,7 @@ void setup_time()
   RTC.squareWave(SQWAVE_NONE); //disable square wave output
 
   struct tm timeinfo;
-  if (getLocalTime(&timeinfo))
+  if (getLocalTime(&timeinfo) && clean_boot)
   {
     Serial.write("setting time: ");
     print_time(timeinfo);
@@ -93,6 +94,8 @@ void setup()
 
   Serial.println("Done setup");
   Serial.println("");
+
+  clean_boot = false;
 }
 
 bool get_local_time(struct tm &timeinfo)
@@ -174,5 +177,8 @@ void loop()
   display.display(true);
   Serial.println("");
 
-  delay(10 * 1000);
+  Serial.println("Going to sleep. Goodnight.");
+  esp_sleep_enable_timer_wakeup(1000ll * 1000 * 10);
+  (void)esp_deep_sleep_start();
+  // delay(10 * 1000);
 }
