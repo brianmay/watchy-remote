@@ -10,6 +10,7 @@
 #include <Wire.h>
 
 #include "DSEG7_Classic_Bold_25.h"
+#include "config.h"
 
 #define CS 5
 #define DC 10
@@ -23,7 +24,7 @@ bool connect_WiFi()
 {
   int WIFI_CONFIGURED;
 
-  if (WL_CONNECT_FAILED == WiFi.begin())
+  if (WL_CONNECT_FAILED == WiFi.begin(ssid, pass))
   { //WiFi not setup, you can also use hard coded credentials with WiFi.begin(SSID,PASS);
     WIFI_CONFIGURED = false;
   }
